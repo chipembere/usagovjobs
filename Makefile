@@ -1,2 +1,2 @@
 test:
-	poetry run pytest -vvv
+	poetry run pytest -vv

@@ -1,3 +1,4 @@
+import os
 import csv
 import sqlite3
 import smtplib
@@ -6,21 +7,29 @@ import sqlalchemy
 from os import environ
 from datetime import date
 from typing import List
+from sqlalchemy import create_engine
 
-BASE_URL = "https://data.usajobs.gov/api/"
-PAGE_LIMIT = 500
+from usagovjobs import constants
 
 def db_connect(db_name: str):
     """Connects to database and returns a database connection object. """
-    pass
+    engine = create_engine(f"sqlite:///{db_name}.db", echo=True, future=True)
+    return engine
 
-def get_api_call(endpoint: str, params: dict, base_url: str = BASE_URL, page_limit: int = PAGE_LIMIT):
+def get_api_call(endpoint: str, params: dict, base_url: str = constants.BASE_URL, page_limit: int = constants.PAGE_LIMIT):
     """
     Makes a GET request with appropriate parameters, authentication,
     while respecting page and rate limits, and paginating if needed. 
     
     Returns a JSON API response object. """
-    pass
+    headers = {
+        "Host": constants.HOST,
+        "User-Agent": constants.USA_JOBS_USER_AGENT,
+        "Authorization-Key": constants.USA_JOBS_API_KEY
+    }
+    url = f"{base_url}{endpoint}"
+    resp = requests.get(url=url, headers=headers, params=params)
+    return resp.json()
 
 def extract_positions(titles: List[str], keywords: List[str]):
     """

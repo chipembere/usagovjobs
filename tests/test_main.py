@@ -1,18 +1,28 @@
-from usagovjobs import main
+import pytest
+import requests
+import sqlalchemy
 
+from unittest import mock
+
+from usagovjobs import main, constants
 
 def test_db_connect():
     """Connects to database and returns a database connection object. """
-    # test_db_connect()
-    pass
+    assert type(main.db_connect(db_name=constants.DB_NAME)) == sqlalchemy.future.Engine
 
-def test_get_api_call():
-    """
-    Makes a GET request with appropriate parameters, authentication,
-    while respecting page and rate limits, and paginating if needed. 
-    
-    Returns a JSON API response object. """
-    pass
+@mock.patch("usagovjobs.main.requests")
+def test_get_api_call_args(mock_get, mock_request_object, headers):
+    params = {"Page": 1, "ResultsPerPage": 500, "Keywords": "data"}
+    mock_get.return_value = mock.MagicMock(return_value=mock_request_object)
+    main.get_api_call(endpoint="search", params=params)
+    mock_get.get.assert_called_with(url=constants.BASE_URL + "search", headers=headers, params=params)
+
+@mock.patch("usagovjobs.main.requests.get")
+def test_get_api_call_response(mock_get, mock_response_object, headers):
+    params = {"Page": 1, "ResultsPerPage": 500, "Keywords": "data"}
+    mock_get.return_value = mock_response_object
+    resp = main.get_api_call(endpoint="search", params=params)
+    assert resp == mock_response_object.json_data
 
 def test_extract_positions():
     """
