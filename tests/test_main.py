@@ -14,14 +14,15 @@ def test_db_connect():
 def test_get_api_call_args(mock_get, mock_request_object, headers):
     params = {"Page": 1, "ResultsPerPage": 500, "Keywords": "data"}
     mock_get.return_value = mock.MagicMock(return_value=mock_request_object)
-    main.get_api_call(endpoint="search", params=params)
+    main.get_api_call(endpoint="search", params=params, base_url=constants.BASE_URL)
+    
     mock_get.get.assert_called_with(url=constants.BASE_URL + "search", headers=headers, params=params)
 
 @mock.patch("usagovjobs.main.requests.get")
 def test_get_api_call_response(mock_get, mock_response_object, headers):
     params = {"Page": 1, "ResultsPerPage": 500, "Keywords": "data"}
     mock_get.return_value = mock_response_object
-    resp = main.get_api_call(endpoint="search", params=params)
+    resp = main.get_api_call(endpoint="search", params=params, base_url=constants.BASE_URL)
     assert resp == mock_response_object.json_data
 
 def test_extract_positions():

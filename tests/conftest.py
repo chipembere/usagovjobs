@@ -1,6 +1,16 @@
 import pytest
 
+from unittest import mock
+
 from usagovjobs import constants
+
+@pytest.fixture(autouse=True)
+def mock_constants(monkeypatch):
+    monkeypatch.setattr("usagovjobs.main.constants.BASE_URL", "test-url-")
+    monkeypatch.setattr(constants, name="USA_JOBS_API_KEY", value="test-key")
+    monkeypatch.setattr(constants, name="USA_JOBS_USER_AGENT", value="test-user-agent")
+    monkeypatch.setattr(constants, name="HOST", value="test-host")
+
 
 @pytest.fixture(scope="function")
 def headers():
