@@ -1,9 +1,10 @@
+import os
 import json
 import pytest
 
 from unittest import mock
 
-from usagovjobs import constants
+from usagovjobs import constants, main
 
 api_response = {
     "LanguageCode": "EN",
@@ -280,3 +281,10 @@ def mock_response_object():
             return self.status_code
 
     return Mock_Response(json_data={"test": "data"}, status_code=200)
+
+
+@pytest.fixture(scope="function")
+def mock_db():
+    yield main.prep_database(db_name="test")
+    if os.path.exists("test.db"):
+        os.remove("test.db")

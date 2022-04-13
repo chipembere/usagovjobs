@@ -4,8 +4,9 @@ import sqlalchemy
 
 from unittest import mock
 from pydantic import BaseModel
+from sqlalchemy import select
 
-from usagovjobs import main, constants
+from usagovjobs import main, constants, models
 
 
 def test_db_connect():
@@ -44,9 +45,11 @@ def test_extract_positions(mock_get_api_call):
 def test_parse_positions(response_json):
     res = main.parse_positions(response_json)
     assert type(res) == list
-    assert res[0].position_title == "COMPUTER SCIENTIST (DATA SCIENTIST/DATA ANALYST)"
-    assert res[0].min_salary == 97738.0
-    assert res[0].who_may_apply == "United States Citizens "
+    assert (
+        res[0]["position_title"] == "COMPUTER SCIENTIST (DATA SCIENTIST/DATA ANALYST)"
+    )
+    assert res[0]["min_salary"] == 97738.0
+    assert res[0]["who_may_apply"] == "United States Citizens "
 
 
 @mock.patch("usagovjobs.main.get_api_call")
@@ -54,17 +57,29 @@ def test_extract_and_parse_positions(mock_get_api_call, response_json):
     mock_get_api_call.return_value = response_json
     res = main.extract_positions(titles=["Data Engineer"], keywords=["data"])
     assert mock_get_api_call.call_count == 2
-    assert res[1][1].position_title == "Data Scientist"
-    assert res[1][1].min_salary == 126233.0
-    assert res[1][1].who_may_apply == "United States Citizens "
+    assert res["data_engineer"][1]["position_title"] == "Data Scientist"
+    assert res["data_engineer"][1]["min_salary"] == 126233.0
+    assert res["data_engineer"][1]["who_may_apply"] == "United States Citizens "
 
 
-def test_prep_database():
-    """Connects to database and creates tables if necessary."""
+@mock.patch("usagovjobs.main.db_connect")
+def test_prep_database(mock_db_connect):
+    mock_db_connect.return_value = mock.MagicMock()
+    main.prep_database(db_name="test_db")
+    mock_db_connect.assert_called_once_with(db_name="test_db")
 
 
-def test_load_data():
-    """Connects to database and loads values in corresponding tables."""
+@mock.patch("usagovjobs.main.prep_database")
+@mock.patch("usagovjobs.main.get_api_call")
+def test_load_data(mock_get_api_call, mock_prep_database, mock_db, response_json):
+    mock_prep_database.return_value = mock_db
+    mock_get_api_call.return_value = response_json
+    res = main.extract_positions(titles=["Data Engineer"], keywords=["data"])
+    main.load_data(table_name="data_engineer", row_values=res["data_engineer"])
+    s = select(models.Base.metadata.tables["data_engineer"])
+    conn = mock_db.connect()
+    result = conn.execute(s)
+    assert result.fetchone()
 
 
 def test_run_analysis():

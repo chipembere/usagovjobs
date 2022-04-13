@@ -7,11 +7,10 @@ import requests
 import sqlalchemy
 from os import environ
 from datetime import date
-from typing import List, Tuple
-from sqlalchemy import create_engine
 from pydantic import BaseModel
-
-from usagovjobs import constants
+from typing import List, Tuple, Dict
+from sqlalchemy import create_engine, insert, select
+from usagovjobs import constants, models
 
 
 class Position(BaseModel):
@@ -23,8 +22,11 @@ class Position(BaseModel):
     salary_interval: str
     who_may_apply: str
 
+    class Config:
+        orm_mode = True
 
-def db_connect(db_name: str):
+
+def db_connect(db_name: str = constants.DB_NAME):
     """Connects to database and returns a database connection object."""
     engine = create_engine(f"sqlite:///{db_name}.db", echo=True, future=True)
     return engine
@@ -34,7 +36,6 @@ def get_api_call(
     endpoint: str,
     params: dict,
     base_url: str = constants.BASE_URL,
-    page_limit: int = constants.PAGE_LIMIT,
 ):
     """
     Makes a GET request with appropriate parameters, authentication,
@@ -55,47 +56,56 @@ def get_api_call(
         return None
 
 
-def extract_positions(titles: List[str], keywords: List[str]) -> List[Position]:
+def extract_positions(
+    titles: List[str], keywords: List[str]
+) -> Dict[str, List[Position]]:
     """
     Makes API calls for titles and keywords, parses the responses.
 
     Returns the values ready to be loaded into database."""
-    responses: List[Tuple[str, requests.Response]] = []
-    position_objects: List[Tuple[str, Position]] = []
-
+    table_and_positions: Dict[str, List[Dict]] = {}
     for title in titles:
-        responses.append(
-            (
-                title,
-                get_api_call(
-                    endpoint="search",
-                    params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": title},
-                ),
-            )
+        response_json: requests.Response = get_api_call(
+            endpoint="search",
+            params={
+                "Page": 1,
+                "ResultsPerPage": constants.PAGE_LIMIT,
+                "PositionTitle": title,
+            },
         )
+        if response_json:
+            table_and_positions[constants.KEYWORD_TABLE_MAP[title]] = parse_positions(
+                response_json
+            )
+        else:
+            print(f"PositionTitle: {title} request error")
+            return
     for keyword in keywords:
-        responses.append(
-            (
-                keyword,
-                get_api_call(
-                    endpoint="search",
-                    params={"Page": 1, "ResultsPerPage": 500, "Keywords": keyword},
-                ),
-            )
+        response_json: requests.Response = get_api_call(
+            endpoint="search",
+            params={
+                "Page": 1,
+                "ResultsPerPage": constants.PAGE_LIMIT,
+                "Keyword": keyword,
+            },
         )
-    if len(responses) == 0:
-        return
-    for word, resp in responses:
-        position_objects.extend((word, parse_positions(resp)))
-    return position_objects
+        if response_json:
+            table_and_positions[constants.KEYWORD_TABLE_MAP[keyword]] = parse_positions(
+                response_json
+            )
+        else:
+            print(f"Keyword: {keyword} request error")
+            return
+
+    return table_and_positions
 
 
-def parse_positions(response_json) -> List[Position]:
+def parse_positions(response_json) -> List[Dict]:
     """
     Parses a response JSON for wanted fields.
 
     Returns a list of positions of appropriate object type."""
-    parsed_positions = []
+    parsed_positions: List[Dict] = []
     for position in response_json["SearchResult"]["SearchResultItems"]:
         position_data = position["MatchedObjectDescriptor"]
         parsed_positions.append(
@@ -111,17 +121,34 @@ def parse_positions(response_json) -> List[Position]:
                 who_may_apply="United States Citizens "
                 if position_data["UserArea"]["Details"]["WhoMayApply"]["Name"] == ""
                 else position_data["UserArea"]["Details"]["WhoMayApply"],
-            )
+            ).dict()
         )
     return parsed_positions
 
 
-def prep_database(db_name: str):
+def prep_database(db_name: str = constants.DB_NAME):
     """Connects to database and creates tables if necessary."""
+    try:
+        engine = db_connect(db_name=db_name)
+        models.Base.metadata.drop_all(bind=engine)
+        models.Base.metadata.create_all(bind=engine)
+        return engine
+    except Exception as e:
+        print(e)
+        return
 
 
-def load_data(row_values: List[dict], table_name: str):
+def load_data(table_name: str, row_values: List[dict]):
     """Connects to database and loads values in corresponding tables."""
+    engine = prep_database()
+    for row in row_values:
+        try:
+            stmt = insert(models.Base.metadata.tables[table_name]).values(**row)
+            with engine.connect() as connection:
+                with connection.begin():
+                    result = connection.execute(stmt)
+        except Exception as e:
+            print(e)
 
 
 def run_analysis(output_path: str):
