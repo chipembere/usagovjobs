@@ -7,7 +7,7 @@ import requests
 import sqlalchemy
 from os import environ
 from datetime import date
-from typing import List
+from typing import List, Tuple
 from sqlalchemy import create_engine
 from pydantic import BaseModel
 
@@ -60,25 +60,33 @@ def extract_positions(titles: List[str], keywords: List[str]) -> List[Position]:
     Makes API calls for titles and keywords, parses the responses.
 
     Returns the values ready to be loaded into database."""
-    responses: List[requests.Response] = []
-    position_objects: List[Position] = []
-    responses.append(
-        get_api_call(
-            endpoint="search",
-            params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": titles},
+    responses: List[Tuple[str, requests.Response]] = []
+    position_objects: List[Tuple[str, Position]] = []
+
+    for title in titles:
+        responses.append(
+            (
+                title,
+                get_api_call(
+                    endpoint="search",
+                    params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": title},
+                ),
+            )
         )
-    )
     for keyword in keywords:
         responses.append(
-            get_api_call(
-                endpoint="search",
-                params={"Page": 1, "ResultsPerPage": 500, "Keywords": keyword},
+            (
+                keyword,
+                get_api_call(
+                    endpoint="search",
+                    params={"Page": 1, "ResultsPerPage": 500, "Keywords": keyword},
+                ),
             )
         )
     if len(responses) == 0:
         return
-    for resp in responses:
-        position_objects.extend(parse_positions(resp))
+    for word, resp in responses:
+        position_objects.extend((word, parse_positions(resp)))
     return position_objects
 
 

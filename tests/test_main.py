@@ -54,10 +54,9 @@ def test_extract_and_parse_positions(mock_get_api_call, response_json):
     mock_get_api_call.return_value = response_json
     res = main.extract_positions(titles=["Data Engineer"], keywords=["data"])
     assert mock_get_api_call.call_count == 2
-    # import pdb; pdb.set_trace()
-    assert res[1].position_title == "Data Scientist"
-    assert res[1].min_salary == 126233.0
-    assert res[1].who_may_apply == "United States Citizens "
+    assert res[1][1].position_title == "Data Scientist"
+    assert res[1][1].min_salary == 126233.0
+    assert res[1][1].who_may_apply == "United States Citizens "
 
 
 def test_prep_database():
