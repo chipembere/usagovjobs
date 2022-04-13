@@ -1,5 +1,6 @@
 import os
 import csv
+import json
 import sqlite3
 import smtplib
 import requests
@@ -8,6 +9,7 @@ from os import environ
 from datetime import date
 from typing import List
 from sqlalchemy import create_engine
+from pydantic import BaseModel
 
 from usagovjobs import constants
 
@@ -42,23 +44,54 @@ def get_api_call(
         print(e)
         return None
 
+
 def extract_positions(titles: List[str], keywords: List[str]):
     """
     Makes API calls for titles and keywords, parses the responses.
 
     Returns the values ready to be loaded into database."""
     keywords_responses = []
-    titles_response = get_api_call(endpoint="search", params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": titles})
+    titles_response = get_api_call(
+        endpoint="search",
+        params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": titles},
+    )
     for keyword in keywords:
-        keywords_responses.append(get_api_call(endpoint="search", params={"Page": 1, "ResultsPerPage": 500, "Keywords": keyword}))
+        keywords_responses.append(
+            get_api_call(
+                endpoint="search",
+                params={"Page": 1, "ResultsPerPage": 500, "Keywords": keyword},
+            )
+        )
+
+class Position(BaseModel):
+    position_id: str
+    position_title: str
+    organization_name: str
+    min_salary: float
+    max_salary: float
+    salary_interval: str
+    who_may_apply: str
 
 def parse_positions(response_json):
     """
     Parses a response JSON for wanted fields.
 
     Returns a list of positions of appropriate object type."""
-    pass
-
+    parsed_positions = []
+    for position in response_json["SearchResult"]["SearchResultItems"]:
+        position_data = position["MatchedObjectDescriptor"]
+        parsed_positions.append(
+            Position(
+                position_id=position_data["PositionID"],
+                position_title=position_data["PositionTitle"],
+                organization_name=position_data["OrganizationName"],
+                min_salary=position_data["PositionRemuneration"][0]["MinimumRange"],
+                max_salary=position_data["PositionRemuneration"][0]["MaximumRange"],
+                salary_interval=position_data["PositionRemuneration"][0]["RateIntervalCode"],
+                who_may_apply="United States Citizens " if position_data["UserArea"]["Details"]["WhoMayApply"]["Name"] == "" else position_data["UserArea"]["Details"]["WhoMayApply"],
+            )
+        )
+    return parsed_positions
 
 def prep_database(db_name: str):
     """Connects to database and creates tables if necessary."""
