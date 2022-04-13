@@ -37,7 +37,7 @@ def test_get_api_call_response(mock_get, mock_response_object, headers):
 @mock.patch("usagovjobs.main.get_api_call")
 def test_extract_positions(mock_get_api_call):
     mock_get_api_call.return_value = mock.MagicMock()
-    res = main.extract_positions(titles=["Data Engineer"], keywords=["data"])
+    main.extract_positions(titles=["Data Engineer"], keywords=["data"])
     assert mock_get_api_call.call_count == 2
 
 
@@ -47,6 +47,18 @@ def test_parse_positions(response_json):
     assert res[0].position_title == "COMPUTER SCIENTIST (DATA SCIENTIST/DATA ANALYST)"
     assert res[0].min_salary == 97738.0
     assert res[0].who_may_apply == "United States Citizens "
+
+
+@mock.patch("usagovjobs.main.get_api_call")
+def test_extract_and_parse_positions(mock_get_api_call, response_json):
+    mock_get_api_call.return_value = response_json
+    res = main.extract_positions(titles=["Data Engineer"], keywords=["data"])
+    assert mock_get_api_call.call_count == 2
+    # import pdb; pdb.set_trace()
+    assert res[1].position_title == "Data Scientist"
+    assert res[1].min_salary == 126233.0
+    assert res[1].who_may_apply == "United States Citizens "
+
 
 def test_prep_database():
     """Connects to database and creates tables if necessary."""

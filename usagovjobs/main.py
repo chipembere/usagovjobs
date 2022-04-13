@@ -14,6 +14,16 @@ from pydantic import BaseModel
 from usagovjobs import constants
 
 
+class Position(BaseModel):
+    position_id: str
+    position_title: str
+    organization_name: str
+    min_salary: float
+    max_salary: float
+    salary_interval: str
+    who_may_apply: str
+
+
 def db_connect(db_name: str):
     """Connects to database and returns a database connection object."""
     engine = create_engine(f"sqlite:///{db_name}.db", echo=True, future=True)
@@ -45,34 +55,34 @@ def get_api_call(
         return None
 
 
-def extract_positions(titles: List[str], keywords: List[str]):
+def extract_positions(titles: List[str], keywords: List[str]) -> List[Position]:
     """
     Makes API calls for titles and keywords, parses the responses.
 
     Returns the values ready to be loaded into database."""
-    keywords_responses = []
-    titles_response = get_api_call(
-        endpoint="search",
-        params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": titles},
+    responses: List[requests.Response] = []
+    position_objects: List[Position] = []
+    responses.append(
+        get_api_call(
+            endpoint="search",
+            params={"Page": 1, "ResultsPerPage": 500, "PositionTitle": titles},
+        )
     )
     for keyword in keywords:
-        keywords_responses.append(
+        responses.append(
             get_api_call(
                 endpoint="search",
                 params={"Page": 1, "ResultsPerPage": 500, "Keywords": keyword},
             )
         )
+    if len(responses) == 0:
+        return
+    for resp in responses:
+        position_objects.extend(parse_positions(resp))
+    return position_objects
 
-class Position(BaseModel):
-    position_id: str
-    position_title: str
-    organization_name: str
-    min_salary: float
-    max_salary: float
-    salary_interval: str
-    who_may_apply: str
 
-def parse_positions(response_json):
+def parse_positions(response_json) -> List[Position]:
     """
     Parses a response JSON for wanted fields.
 
@@ -87,11 +97,16 @@ def parse_positions(response_json):
                 organization_name=position_data["OrganizationName"],
                 min_salary=position_data["PositionRemuneration"][0]["MinimumRange"],
                 max_salary=position_data["PositionRemuneration"][0]["MaximumRange"],
-                salary_interval=position_data["PositionRemuneration"][0]["RateIntervalCode"],
-                who_may_apply="United States Citizens " if position_data["UserArea"]["Details"]["WhoMayApply"]["Name"] == "" else position_data["UserArea"]["Details"]["WhoMayApply"],
+                salary_interval=position_data["PositionRemuneration"][0][
+                    "RateIntervalCode"
+                ],
+                who_may_apply="United States Citizens "
+                if position_data["UserArea"]["Details"]["WhoMayApply"]["Name"] == ""
+                else position_data["UserArea"]["Details"]["WhoMayApply"],
             )
         )
     return parsed_positions
+
 
 def prep_database(db_name: str):
     """Connects to database and creates tables if necessary."""

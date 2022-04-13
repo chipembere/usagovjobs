@@ -29,7 +29,7 @@ api_response = {
                             "CountrySubDivisionCode": "Maryland",
                             "CityName": "Fort Meade, Maryland",
                             "Longitude": -76.7419,
-                            "Latitude": 39.1014
+                            "Latitude": 39.1014,
                         },
                         {
                             "LocationName": "Boyers, Pennsylvania",
@@ -37,7 +37,7 @@ api_response = {
                             "CountrySubDivisionCode": "Pennsylvania",
                             "CityName": "Boyers, Pennsylvania",
                             "Longitude": -79.89917,
-                            "Latitude": 41.108505
+                            "Latitude": 41.108505,
                         },
                         {
                             "LocationName": "Arlington, Virginia",
@@ -45,7 +45,7 @@ api_response = {
                             "CountrySubDivisionCode": "Virginia",
                             "CityName": "Arlington, Virginia",
                             "Longitude": -77.086296,
-                            "Latitude": 38.89051
+                            "Latitude": 38.89051,
                         },
                         {
                             "LocationName": "Quantico, Virginia",
@@ -53,40 +53,21 @@ api_response = {
                             "CountrySubDivisionCode": "Virginia",
                             "CityName": "Quantico, Virginia",
                             "Longitude": -77.2909,
-                            "Latitude": 38.5221
-                        }
+                            "Latitude": 38.5221,
+                        },
                     ],
                     "OrganizationName": "Defense Counterintelligence and Security Agency",
                     "DepartmentName": "Department of Defense",
-                    "JobCategory": [
-                        {
-                            "Name": "Computer Science",
-                            "Code": "1550"
-                        }
-                    ],
-                    "JobGrade": [
-                        {
-                            "Code": "GG"
-                        }
-                    ],
-                    "PositionSchedule": [
-                        {
-                            "Name": "Full-time",
-                            "Code": "1"
-                        }
-                    ],
-                    "PositionOfferingType": [
-                        {
-                            "Name": "Permanent",
-                            "Code": "15317"
-                        }
-                    ],
+                    "JobCategory": [{"Name": "Computer Science", "Code": "1550"}],
+                    "JobGrade": [{"Code": "GG"}],
+                    "PositionSchedule": [{"Name": "Full-time", "Code": "1"}],
+                    "PositionOfferingType": [{"Name": "Permanent", "Code": "15317"}],
                     "QualificationSummary": "This position has a Basic Requirement for the 1550:\nBachelor's degree in computer science or bachelor's degree with 30 semester hours in a combination of mathematics, statistics, and computer science. At least 15 of the 30 semester hours must have included any combination of statistics and mathematics that included differential and integral calculus. All academic degrees and course work must be from accredited or pre-accredited institutions.\n*NOTE: Failure to provide transcripts will result in you being rated ineligible for this position. The experience described in your resume will be evaluated and screened from the Office of Personnel Management's (OPMs) basic qualifications requirements. See: Computer Science Series 1550 (opm.gov) i.e. for professional positions or positions with a basic education requirement: General Schedule Qualification Standards (opm.gov) for OPM qualification standards, competencies and specialized experience needed to perform the duties of the position as described in the MAJOR DUTIES and QUALIFICATIONS sections of this announcement by 04/14/2022 Applicant must have directly applicable experience that demonstrates the possession of the knowledge, skills, abilities and competencies necessary for immediate success in the position. Qualifying experience may have been acquired in any public or private sector job, but will clearly demonstrate past experience in the application of the particular competencies/knowledge, skills and abilities necessary to successfully perform the duties of the position. You must have specialized experience sufficient to demonstrate that you have acquired all the competencies necessary to perform at a level equivalent in difficulty, responsibility, and complexity to the next lower grade (GS/GG-12) in the Federal service and are prepared to take on greater responsibility. Generally, this would include one year or more of such specialized experience. Specialized experience for this position includes:\nSpecialized experience for this position includes principles of data science, data engineering, and/or data architecture. This experience is typically demonstrated by evidence of development of Ai/ML/NLP constructs/algorithms using python; experience using statistical software such as SPSS or SAS; experience using robotic process automation (RPA) software such as UiPath; and/or experience designing and/or implementing cloud based big data stores optimized for Ai. Specifically you will be evaluated on the following competencies: 1. Data Analysis - Manipulate and exploit internal and external, structured, and unstructured data sources to accomplish organizational goals. 2. Modeling and Simulation - Apply tools, techniques, and procedures to develop functional, physical, or prototype models and simulations for training, testing and evaluation, the prediction of behavior and phenomena, the evaluation of design alternatives, to support operational preparation, and to visually communicate concepts and/or validate requirements. 3. Programming Languages - Use programming languages to script and automate tasks; applies programming languages and skills across multiple platforms or frameworks. 4. Software Engineering - Designs software utilizing the software life cycle process; develops, deploys, updates, maintains, and tests software using methodologies and tools; designs to leverage software reusability; and establishes and utilizes software engineering metrics. 5. Systems Design - Design and evaluate software and hardware and develops enterprise and solution architectures that meet user needs and optimize performance, using applicable principles, methods, and tools.",
                     "PositionRemuneration": [
                         {
                             "MinimumRange": "97738.0",
                             "MaximumRange": "138868.0",
-                            "RateIntervalCode": "Per Year"
+                            "RateIntervalCode": "Per Year",
                         }
                     ],
                     "PositionStartDate": "2022-03-25T11:18:12.4200",
@@ -96,24 +77,19 @@ api_response = {
                     "PositionFormattedDescription": [
                         {
                             "Label": "Dynamic Teaser",
-                            "LabelDescription": "Hit highlighting for keyword searches."
+                            "LabelDescription": "Hit highlighting for keyword searches.",
                         }
                     ],
                     "UserArea": {
                         "Details": {
                             "JobSummary": "This position is placed in the Program Executive Office (PEO) or one of DCSA's Mission or Mission Support Areas. There are multiple vacancies in the Program Executive Office (PEO). The individual will serve as a Data Scientist, Data Engineer, or Data Architect under the Office of the Technical Director (OTD) or directly for one of the Program Managers (PM), supporting one or more of DCSA's missions.",
-                            "WhoMayApply": {
-                                "Name": "",
-                                "Code": ""
-                            },
+                            "WhoMayApply": {"Name": "", "Code": ""},
                             "LowGrade": "13",
                             "HighGrade": "13",
                             "PromotionPotential": "None",
                             "OrganizationCodes": "DD/DD12",
                             "Relocation": "True",
-                            "HiringPath": [
-                                "public"
-                            ],
+                            "HiringPath": ["public"],
                             "TotalOpenings": "13",
                             "AgencyMarketingStatement": "Mission Statement\nThe Defense Counterintelligence and Security Agency (DCSA) is a separate Agency of the Department of Defense (DoD) under the direction, authority, and control of the Under Secretary of Defense for Intelligence and Security (USD (I&S). The mission of the DCSA is as follows: -Deliver efficient and effective background investigations, adjudications and continuous vetting to safeguard the integrity and trustworthiness of an agile federal and contractor workforce, and preserve military readiness and warfighting capabilities\n-Identify and neutralize foreign intelligence threats to the USG's trusted workforce and critical technologies\n-Develop and articulate holistic threat picture of risk posed by foreign intelligence entities and hostile insiders, enabling the USG to strengthen our security posture, continuously protect against the evolving threat, and enable action agencies to more effectively counter adversaries\n-Contribute meaningful analysis to the Intelligence Community (IC)-Manage the National Industrial Security Program (NISP) on behalf of the Secretary of Defense by clearing industrial facilities, personnel, and associated IT systems\n-Identify and defeat threats presented to critical technologies and through the supply chain\n-Provide education, training, research, and security awareness to DoD, other federal government organizations, and industry\n-Execute enterprise management responsibilities for DoD Security and Insider Threat Programs.",
                             "TravelCode": "1",
@@ -127,7 +103,7 @@ api_response = {
                             "Evaluations": "Once the application process is complete, your resume and supporting documentation will be used to determine whether you meet the job qualifications listed on this announcement. If you are minimally qualified for this job, your resume and supporting documentation will be compared to your responses on the Occupational Questionnaire. If you rate yourself higher than is supported by your application materials, your responses may be adjusted and/or you may be excluded from consideration for this job If you are found to be among the top candidates, you will be referred to the selecting official for employment consideration.",
                             "HowToApply": "To apply for this position, you must provide a complete Application Package as described in REQUIRED DOCUMENTS. Click 'Apply Online' to create an account or log in to your existing USAJOBS account. 1. Follow the prompts to complete the assessment questionnaire and upload required documents.\n2. Please ensure you click the Submit My Answers button to submit your application.\n3. Applications must be received by the closing date of the announcement to receive consideration. To review the status of an application through USAJOBS: 1. Log into your USAJOBS account\n2. Click Application Status within your profile to expand your application\n3. Locate the job announcement and click the more information link under the Status column for this position. You will be routed to Application Manager. The Details tab displays by default. The Details tab displays comprehensive information about the selected Application Package including: assessment(s) and the status, supporting documents and their status, correspondence sent to you by the hiring agency, and your application processing status.",
                             "WhatToExpectNext": "Once you successfully complete the application process, you will receive a notification of receipt. Your application package will be reviewed to ensure you meet the basic eligibility and qualifications requirements, and you will receive a notification. A review will be made of your online questionnaire and the documentation you submitted to support your responses. A list of qualified applicants will be created and sent to the selecting official. All applicants reviewed and/or referred will receive a notification letter. The selecting official may choose to conduct interviews, and once the selection is made, you will receive a notification of the decision. *NOTE: If you submit a resume but no questionnaire, you cannot be considered for the position. If you submit a questionnaire but no resume, you cannot be considered for the position. Your application will be appropriately documented and you will be removed from further competition against this announcement. REGARDING INTERVIEWS: Interviews may be required for this position. Accommodations may be made to conduct telephonic interviews to preclude travel hardships for applicants. Note: Declining to be interviewed or failure to report for a scheduled interview will be considered as a declination for further consideration for employment against this vacancy.\nThe Defense Counterintelligence and Security Agency provides reasonable accommodations to applicants with disabilities. If you need a reasonable accommodation for any part of the application and hiring process, please notify the point of contact for this job announcement. Your requests for reasonable accommodation will be addressed on a case-by-case basis. This announcement may be used to fill additional vacancies.",
-                            "RequiredDocuments": "Please review the General Application Information and Definitions at:\nhttps://www.dla.mil/Portals/104/Documents/Careers/downloads/DoDGenAppInfo%2012-1-2020.pdf?ver=ECNbdsHtGilTd3OENN4A0Q%3d%3d The documents you are required to submit vary based on the authority you are using to apply (i.e., applying as a veteran, applying as a current permanent Federal employee, applying as a reinstatement, etc.). Your complete application includes your COMPLETE resume, your responses to the online questionnaire, and documents which prove your eligibility to apply. If you fail to provide these documents, you will be marked as having an incomplete application package and you will not be considered any further. The following documents are REQUIRED\n1. Your resume: If area of consideration is limited to the local commuting area, you must reside OR be currently employed within a reasonable distance of the advertised position's location(s). Please ensure your resume reflects your current home address and/or employer's address as this will be used to determine the area of consideration eligibility requirement when an SF50 is not applicable Your resume may be submitted in any format. It must include your name and contact information and support the specialized experience described in this announcement. For qualifications determinations your resume must contain the dates of employment (i.e., Month/Year to present). For additional information see: What to include in your resume. 2. Transcripts This position has a degree or education requirement so you are required to submit a copy of your transcript College transcript(s), required if qualifying based on education. We accept unofficial transcripts, as long as they contain your name, the name of the school, the date and degree that was awarded, and the lists of classes and credits earned. 3. Veteran's Documents If applying for Veteran's preference, please provide a copy of your DD214 showing character of service, SF-15 Form and VA letter showing final percentage, or certification of expected discharge or release from active duty. Future Military Retirees: You are required to submit a copy of your \"official\" Retirement (NOTE: Member 4 Copy is preferred, but we will accept copies that show character of service i.e. \"honorable or general-under honorable conditions.\" The Member 1 copy will not be accepted), OR if your DD214 has yet to be approved, a Retirement Letter will be accepted up to 120 days prior to retirement signed by, or by direction of, the adjutant, personnel officer, or commander of your unit or higher headquarters which must include your rank, dates of active duty service, the Type of Discharge, Character of Service (i.e. honorable). IF, you are taking leave prior to your retirement date, you must provide a copy of your \"approved\" terminal leave request form (must show \"Terminal\" or \"Other- Transition\") or the Approved Terminal/Other-Transition Leave Start Date must be indicated on your Retirement Letter. If you are not taking leave prior to your separation date you are not required to provide a terminal leave request form or indicate a Leave Start Date on your Statement of Service. Future Military Separatees (Not Retiring): You are required to submit a copy of your \"official\" DD214 (NOTE: Member 4 Copy is preferred, but we will accept copies that show character of service i.e. \"honorable or general-under honorable conditions.\" The Member 1 copy will not be accepted), OR if your DD214 has yet to be approved, a copy of your most recent active duty orders for separation or a statement of service letter will be accepted up to 120 days prior to separation which must reflect the Type of Discharge, and Character of Service (i.e. honorable). IF, you are taking leave prior to your separation date, you must provide a copy of your \"approved\" terminal leave request form (must show \"Terminal\" or \"Other-Transition\") or the Approved Terminal/Other-Transition Leave Start Date must be indicated on your Statement of Service. If you are not taking leave prior to your separation date you are not required to provide a terminal leave request form or indicate a Leave Start Date on your Statement of Service. NOTE: Active duty military members are not eligible for appointment unless currently on terminal leave. 4. SF-50: If applicable, all current and former Federal employees must submit a copy of your latest SF50 (Notification of Personnel Action) showing your tenure, grade and step, and type of position occupied (i.e., Excepted or Competitive); or similar Notification of Personnel Action documentation, i.e., Transcript of Service, Form 1150, etc. Failure to provide latest SF50 will result in you being rated ineligible for this position. If selected, additional documentation may be required prior to appointment.",
+                            "RequiredDocuments": 'Please review the General Application Information and Definitions at:\nhttps://www.dla.mil/Portals/104/Documents/Careers/downloads/DoDGenAppInfo%2012-1-2020.pdf?ver=ECNbdsHtGilTd3OENN4A0Q%3d%3d The documents you are required to submit vary based on the authority you are using to apply (i.e., applying as a veteran, applying as a current permanent Federal employee, applying as a reinstatement, etc.). Your complete application includes your COMPLETE resume, your responses to the online questionnaire, and documents which prove your eligibility to apply. If you fail to provide these documents, you will be marked as having an incomplete application package and you will not be considered any further. The following documents are REQUIRED\n1. Your resume: If area of consideration is limited to the local commuting area, you must reside OR be currently employed within a reasonable distance of the advertised position\'s location(s). Please ensure your resume reflects your current home address and/or employer\'s address as this will be used to determine the area of consideration eligibility requirement when an SF50 is not applicable Your resume may be submitted in any format. It must include your name and contact information and support the specialized experience described in this announcement. For qualifications determinations your resume must contain the dates of employment (i.e., Month/Year to present). For additional information see: What to include in your resume. 2. Transcripts This position has a degree or education requirement so you are required to submit a copy of your transcript College transcript(s), required if qualifying based on education. We accept unofficial transcripts, as long as they contain your name, the name of the school, the date and degree that was awarded, and the lists of classes and credits earned. 3. Veteran\'s Documents If applying for Veteran\'s preference, please provide a copy of your DD214 showing character of service, SF-15 Form and VA letter showing final percentage, or certification of expected discharge or release from active duty. Future Military Retirees: You are required to submit a copy of your "official" Retirement (NOTE: Member 4 Copy is preferred, but we will accept copies that show character of service i.e. "honorable or general-under honorable conditions." The Member 1 copy will not be accepted), OR if your DD214 has yet to be approved, a Retirement Letter will be accepted up to 120 days prior to retirement signed by, or by direction of, the adjutant, personnel officer, or commander of your unit or higher headquarters which must include your rank, dates of active duty service, the Type of Discharge, Character of Service (i.e. honorable). IF, you are taking leave prior to your retirement date, you must provide a copy of your "approved" terminal leave request form (must show "Terminal" or "Other- Transition") or the Approved Terminal/Other-Transition Leave Start Date must be indicated on your Retirement Letter. If you are not taking leave prior to your separation date you are not required to provide a terminal leave request form or indicate a Leave Start Date on your Statement of Service. Future Military Separatees (Not Retiring): You are required to submit a copy of your "official" DD214 (NOTE: Member 4 Copy is preferred, but we will accept copies that show character of service i.e. "honorable or general-under honorable conditions." The Member 1 copy will not be accepted), OR if your DD214 has yet to be approved, a copy of your most recent active duty orders for separation or a statement of service letter will be accepted up to 120 days prior to separation which must reflect the Type of Discharge, and Character of Service (i.e. honorable). IF, you are taking leave prior to your separation date, you must provide a copy of your "approved" terminal leave request form (must show "Terminal" or "Other-Transition") or the Approved Terminal/Other-Transition Leave Start Date must be indicated on your Statement of Service. If you are not taking leave prior to your separation date you are not required to provide a terminal leave request form or indicate a Leave Start Date on your Statement of Service. NOTE: Active duty military members are not eligible for appointment unless currently on terminal leave. 4. SF-50: If applicable, all current and former Federal employees must submit a copy of your latest SF50 (Notification of Personnel Action) showing your tenure, grade and step, and type of position occupied (i.e., Excepted or Competitive); or similar Notification of Personnel Action documentation, i.e., Transcript of Service, Form 1150, etc. Failure to provide latest SF50 will result in you being rated ineligible for this position. If selected, additional documentation may be required prior to appointment.',
                             "Benefits": "",
                             "BenefitsUrl": "https://www.usajobs.gov/Help/working-in-government/benefits/",
                             "BenefitsDisplayDefaultText": True,
@@ -142,16 +118,14 @@ api_response = {
                             "SecurityClearance": "Sensitive Compartmented Information",
                             "DrugTestRequired": "True",
                             "PositionSensitivitiy": "Special-Sensitive (SS)/High Risk",
-                            "AdjudicationType": [
-                                "Suitability/Fitness"
-                            ],
+                            "AdjudicationType": ["Suitability/Fitness"],
                             "TeleworkEligible": True,
-                            "RemoteIndicator": False
+                            "RemoteIndicator": False,
                         },
-                        "IsRadialSearch": False
-                    }
+                        "IsRadialSearch": False,
+                    },
                 },
-                "RelevanceRank": 0
+                "RelevanceRank": 0,
             },
             {
                 "MatchedObjectId": "645856400",
@@ -170,7 +144,7 @@ api_response = {
                             "CountrySubDivisionCode": "District of Columbia",
                             "CityName": "Washington, District of Columbia",
                             "Longitude": -77.032,
-                            "Latitude": 38.8904
+                            "Latitude": 38.8904,
                         },
                         {
                             "LocationName": "Las Vegas, Nevada",
@@ -178,40 +152,21 @@ api_response = {
                             "CountrySubDivisionCode": "Nevada",
                             "CityName": "Las Vegas, Nevada",
                             "Longitude": -115.14,
-                            "Latitude": 36.1719
-                        }
+                            "Latitude": 36.1719,
+                        },
                     ],
                     "OrganizationName": "National Nuclear Security Administration",
                     "DepartmentName": "Department of Energy",
-                    "JobCategory": [
-                        {
-                            "Name": "Data Science Series",
-                            "Code": "1560"
-                        }
-                    ],
-                    "JobGrade": [
-                        {
-                            "Code": "NQ"
-                        }
-                    ],
-                    "PositionSchedule": [
-                        {
-                            "Name": "Full-time",
-                            "Code": "1"
-                        }
-                    ],
-                    "PositionOfferingType": [
-                        {
-                            "Name": "Permanent",
-                            "Code": "15317"
-                        }
-                    ],
-                    "QualificationSummary": "SPECIALIZED EXPERIENCE REQUIREMENTS A qualified candidate's online application and resume must demonstrate at least one year of specialized experience equivalent to the next lower NNSA Demonstration Project pay band or GS grade level in the Federal service, i.e., NQ-03 or GS-14. Specialized experience for this position is defined as: 1. Experience gathering and analyzing data using statistical software (including either Python or R) as part of data analysis to answer questions (not including for automation purposes); writing analysis solutions that are programmatic and repeatable. 2. Experience performing research and preparing materials for publication or presentation such as reports, research articles, source code, or other published content.\n3. Experience developing, deploying, and explaining machine learning and traditional statistical models. 4. Experience organizing and analyzing large amounts of structured and unstructured data sets using data analytical tools; creating and implementing data collection and analysis tools while utilizing programming languages and environments such as, R, Python, SQL, Scala, Java, C/C++, Julia. \"Experience\" refers to paid and unpaid experience. Examples of qualifying unpaid experience may include: volunteer work done through National Service programs (such as Peace Corps and AmeriCorps); as well as work for other community-based philanthropic and social organizations. Volunteer work helps build critical competencies, knowledge, and skills; and can provide valuable training and experience that translates directly to paid employment. You will receive credit for all qualifying experience, including volunteer experience. CTAP/ICTAP candidates: To be considered \"well qualified\" you must meet all of the requirements as described in this section. If you are eligible for career transition assistance plans such as ICTAP or CTAP, you must meet the definition of \"well qualified\" which is defined as having a score of 85 or better. You must meet all qualifications and eligibility requirements within 30 days of the closing date of this announcement.",
+                    "JobCategory": [{"Name": "Data Science Series", "Code": "1560"}],
+                    "JobGrade": [{"Code": "NQ"}],
+                    "PositionSchedule": [{"Name": "Full-time", "Code": "1"}],
+                    "PositionOfferingType": [{"Name": "Permanent", "Code": "15317"}],
+                    "QualificationSummary": 'SPECIALIZED EXPERIENCE REQUIREMENTS A qualified candidate\'s online application and resume must demonstrate at least one year of specialized experience equivalent to the next lower NNSA Demonstration Project pay band or GS grade level in the Federal service, i.e., NQ-03 or GS-14. Specialized experience for this position is defined as: 1. Experience gathering and analyzing data using statistical software (including either Python or R) as part of data analysis to answer questions (not including for automation purposes); writing analysis solutions that are programmatic and repeatable. 2. Experience performing research and preparing materials for publication or presentation such as reports, research articles, source code, or other published content.\n3. Experience developing, deploying, and explaining machine learning and traditional statistical models. 4. Experience organizing and analyzing large amounts of structured and unstructured data sets using data analytical tools; creating and implementing data collection and analysis tools while utilizing programming languages and environments such as, R, Python, SQL, Scala, Java, C/C++, Julia. "Experience" refers to paid and unpaid experience. Examples of qualifying unpaid experience may include: volunteer work done through National Service programs (such as Peace Corps and AmeriCorps); as well as work for other community-based philanthropic and social organizations. Volunteer work helps build critical competencies, knowledge, and skills; and can provide valuable training and experience that translates directly to paid employment. You will receive credit for all qualifying experience, including volunteer experience. CTAP/ICTAP candidates: To be considered "well qualified" you must meet all of the requirements as described in this section. If you are eligible for career transition assistance plans such as ICTAP or CTAP, you must meet the definition of "well qualified" which is defined as having a score of 85 or better. You must meet all qualifications and eligibility requirements within 30 days of the closing date of this announcement.',
                     "PositionRemuneration": [
                         {
                             "MinimumRange": "126233.0",
                             "MaximumRange": "176300.0",
-                            "RateIntervalCode": "Per Year"
+                            "RateIntervalCode": "Per Year",
                         }
                     ],
                     "PositionStartDate": "2022-03-30T00:00:00.0000",
@@ -221,26 +176,19 @@ api_response = {
                     "PositionFormattedDescription": [
                         {
                             "Label": "Dynamic Teaser",
-                            "LabelDescription": "Hit highlighting for keyword searches."
+                            "LabelDescription": "Hit highlighting for keyword searches.",
                         }
                     ],
                     "UserArea": {
                         "Details": {
                             "JobSummary": "A successful candidate in this position will serve as a Data Scientist responsible for Designing data modeling processes, create algorithms and predictive models to extract data the OCIO needs, and performs custom analysis. Washington D.C. Locality Salary: Min: $126, 233.00 to $176,300.00 Las Vegas, NV Locality Salary: Min $113,488.00 to $173,540.00",
-                            "WhoMayApply": {
-                                "Name": "",
-                                "Code": ""
-                            },
+                            "WhoMayApply": {"Name": "", "Code": ""},
                             "LowGrade": "4",
                             "HighGrade": "4",
                             "PromotionPotential": "4",
                             "OrganizationCodes": "DN/DNNN",
                             "Relocation": "False",
-                            "HiringPath": [
-                                "fed-transition",
-                                "fed-competitive",
-                                "vet"
-                            ],
+                            "HiringPath": ["fed-transition", "fed-competitive", "vet"],
                             "TotalOpenings": "2",
                             "AgencyMarketingStatement": "Would you like to play a key role in a critical mission? If so, then the National Nuclear Security Administration (NNSA), Office of Mission Integration has the perfect employment opportunity for an Data Scientist. In this position you'll play an important role in accomplishing the national security mission of the Department of Energy's National Nuclear Security Administration. You will utilize your expertise to plan and conduct critical research and development directly supporting data governance across the Office of the Chief Information Officer (OCIO) and the agency.",
                             "TravelCode": "2",
@@ -258,7 +206,7 @@ api_response = {
                             "Benefits": "",
                             "BenefitsUrl": "https://www.opm.gov/healthcare-insurance/healthcare/plan-information/summary-of-benefits",
                             "BenefitsDisplayDefaultText": True,
-                            "OtherInformation": "The U.S. Department of Energy fosters a diverse and inclusive workplace and is an Equal Opportunity Employer. Veterans and persons with disabilities are encouraged to apply. For more information, please visit the links at the bottom of this page or visit the FedsHireVets website. If you believe that you are eligible for the Interagency Career Transition Assistance Program (ICTAP), please visit the OPM ICTAP/CTAP website for more information. In order to be considered under the ICTAP program, your application must score within the pre-established \"well qualified\" category as stated in the Qualifications section. More than one selection may be made from this vacancy announcement. Some positions may require completion of a probationary period of up to 1 (one) year. Many positions require successful completion of a background investigation. All males born after December 31,1959 must abide by laws regarding Selective Service registration. To learn more about this law, visit the Selective Service web page, Who Must Register. If you are not registered and don't have an approved exemption, you will not be eligible for employment with the Federal government. A Recruitment/Relocation Incentive may be authorized for a highly qualified applicant in accordance with Agency policy. EEO Policy: Click HERE.\nReasonable Accommodation Policy: Click HERE.\nVeterans Information: Click HERE.\nTelework: Click HERE.\nSelective Service Registration: Click HERE.\nInformation about the NNSA Demonstration project can be found by clicking HERE.",
+                            "OtherInformation": 'The U.S. Department of Energy fosters a diverse and inclusive workplace and is an Equal Opportunity Employer. Veterans and persons with disabilities are encouraged to apply. For more information, please visit the links at the bottom of this page or visit the FedsHireVets website. If you believe that you are eligible for the Interagency Career Transition Assistance Program (ICTAP), please visit the OPM ICTAP/CTAP website for more information. In order to be considered under the ICTAP program, your application must score within the pre-established "well qualified" category as stated in the Qualifications section. More than one selection may be made from this vacancy announcement. Some positions may require completion of a probationary period of up to 1 (one) year. Many positions require successful completion of a background investigation. All males born after December 31,1959 must abide by laws regarding Selective Service registration. To learn more about this law, visit the Selective Service web page, Who Must Register. If you are not registered and don\'t have an approved exemption, you will not be eligible for employment with the Federal government. A Recruitment/Relocation Incentive may be authorized for a highly qualified applicant in accordance with Agency policy. EEO Policy: Click HERE.\nReasonable Accommodation Policy: Click HERE.\nVeterans Information: Click HERE.\nTelework: Click HERE.\nSelective Service Registration: Click HERE.\nInformation about the NNSA Demonstration project can be found by clicking HERE.',
                             "KeyRequirements": [],
                             "WithinArea": "False",
                             "CommuteDistance": "0",
@@ -271,22 +219,19 @@ api_response = {
                             "AdjudicationType": [
                                 "Credentialing",
                                 "Suitability/Fitness",
-                                "National security"
+                                "National security",
                             ],
                             "TeleworkEligible": True,
-                            "RemoteIndicator": False
+                            "RemoteIndicator": False,
                         },
-                        "IsRadialSearch": False
-                    }
+                        "IsRadialSearch": False,
+                    },
                 },
-                "RelevanceRank": 0
-            }
+                "RelevanceRank": 0,
+            },
         ],
-        "UserArea": {
-            "NumberOfPages": "1084",
-            "IsRadialSearch": False
-        }
-    }
+        "UserArea": {"NumberOfPages": "1084", "IsRadialSearch": False},
+    },
 }
 
 
