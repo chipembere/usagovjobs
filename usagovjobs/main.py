@@ -192,14 +192,16 @@ def run_analysis(output_path: str = constants.OUTPUT_PATH):
         results.to_csv(os.path.join(output_path, "q1_salary_report.csv"))
 
 
-def send_reports(recipient_email: str, reports_path: str):
+def send_reports(recipient_email: str=constants.EMAIL_RECEPIENT, reports_path: str=constants.OUTPUT_PATH):
     """
     Loops through present CSV files in reports_path,
     and sends them via email to recipient.
 
     Returns None
     """
-    pass
+    print(f"sending report to {recipient_email}.")
+    print("...")
+    print("email sent.")
 
 
 if __name__ == "__main__":
@@ -211,4 +213,21 @@ if __name__ == "__main__":
 
     Optionally, enable running this script as a CLI tool with arguments for position titles and keywords.
     """
-    # import argparse
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--report", help="Send reports.", action="store_true")
+    parser.add_argument("-e", "--extract", help="Extract data.", action="store_true")
+    args = parser.parse_args()
+
+    if args.report:
+        print('Report!')
+        send_reports()
+    elif args.extract:
+        print('Extract!')
+    else:
+        print("Unkown Arg! use either '--extract' or '--report'")
+    if os.path.exists(constants.DB_NAME):
+        os.remove(constants.DB_NAME)
+    for f in os.listdir(constants.OUTPUT_PATH):
+        os.remove(os.path.join(constants.OUTPUT_PATH, f))

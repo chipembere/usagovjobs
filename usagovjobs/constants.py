@@ -18,3 +18,4 @@ KEYWORD_TABLE_MAP = {
     "analytics": "analytics",
 }
 OUTPUT_PATH = "reports"
+EMAIL_RECEPIENT = "recepient@email.com"
