@@ -19,7 +19,9 @@ class DataAnalyst(Base):
     position_title = Column(String(256), nullable=False)
     organization_name = Column(String(256), nullable=False)
     min_salary = Column(Float, nullable=False)
+    monthly_min_salary = Column(Float, nullable=False)
     max_salary = Column(Float, nullable=False)
+    monthly_max_salary = Column(Float, nullable=False)
     salary_interval = Column(String(20), nullable=False)
     who_may_apply = Column(String(63))
 
@@ -36,7 +38,9 @@ class DataScientist(Base):
     position_title = Column(String(256), nullable=False)
     organization_name = Column(String(256), nullable=False)
     min_salary = Column(Float, nullable=False)
+    monthly_min_salary = Column(Float, nullable=False)
     max_salary = Column(Float, nullable=False)
+    monthly_max_salary = Column(Float, nullable=False)
     salary_interval = Column(String(20), nullable=False)
     who_may_apply = Column(String(63))
 
@@ -53,7 +57,9 @@ class DataEngineer(Base):
     position_title = Column(String(256), nullable=False)
     organization_name = Column(String(256), nullable=False)
     min_salary = Column(Float, nullable=False)
+    monthly_min_salary = Column(Float, nullable=False)
     max_salary = Column(Float, nullable=False)
+    monthly_max_salary = Column(Float, nullable=False)
     salary_interval = Column(String(20), nullable=False)
     who_may_apply = Column(String(63))
 
@@ -70,7 +76,9 @@ class Data(Base):
     position_title = Column(String(256), nullable=False)
     organization_name = Column(String(256), nullable=False)
     min_salary = Column(Float, nullable=False)
+    monthly_min_salary = Column(Float, nullable=False)
     max_salary = Column(Float, nullable=False)
+    monthly_max_salary = Column(Float, nullable=False)
     salary_interval = Column(String(20), nullable=False)
     who_may_apply = Column(String(63))
 
@@ -87,7 +95,9 @@ class analysis(Base):
     position_title = Column(String(256), nullable=False)
     organization_name = Column(String(256), nullable=False)
     min_salary = Column(Float, nullable=False)
+    monthly_min_salary = Column(Float, nullable=False)
     max_salary = Column(Float, nullable=False)
+    monthly_max_salary = Column(Float, nullable=False)
     salary_interval = Column(String(20), nullable=False)
     who_may_apply = Column(String(63))
 
@@ -104,6 +114,8 @@ class Analytics(Base):
     position_title = Column(String(256), nullable=False)
     organization_name = Column(String(256), nullable=False)
     min_salary = Column(Float, nullable=False)
+    monthly_min_salary = Column(Float, nullable=False)
     max_salary = Column(Float, nullable=False)
+    monthly_max_salary = Column(Float, nullable=False)
     salary_interval = Column(String(20), nullable=False)
     who_may_apply = Column(String(63))

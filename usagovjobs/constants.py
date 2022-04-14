@@ -17,3 +17,4 @@ KEYWORD_TABLE_MAP = {
     "analysis": "analysis",
     "analytics": "analytics",
 }
+OUTPUT_PATH = "reports"

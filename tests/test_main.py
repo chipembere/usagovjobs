@@ -1,9 +1,8 @@
-import pytest
+import os
 import requests
 import sqlalchemy
 
 from unittest import mock
-from pydantic import BaseModel
 from sqlalchemy import select
 
 from usagovjobs import main, constants, models
@@ -82,20 +81,20 @@ def test_load_data(mock_get_api_call, mock_prep_database, mock_db, response_json
     assert result.fetchone()
 
 
-def test_run_analysis():
-    """
-    Runs 3 SQL queries to obtain results that could answer the following questions:
-    1. How do *monthly* starting salaries differ across positions with different titles and keywords?
-    2. Do (filtered) positions for which 'United States Citizens' can apply have a higher average salary than those
-       that 'Student/Internship Program Eligibles' can apply for? (by month)
-    3. What are the organisations that have most open (filtered) positions?
-
-    Exports results of queries into CSV files in the `output_path` directory.
-
-    ** Feel free to break this function down into smaller units
-    (hint: potentially have a `export_csv(query_result)` function)
-    """
-    pass
+@mock.patch("usagovjobs.main.prep_database")
+@mock.patch("usagovjobs.main.get_api_call")
+def test_run_analysis(mock_get_api_call, mock_prep_database, mock_db, response_json):
+    mock_prep_database.return_value = mock_db
+    mock_get_api_call.return_value = response_json
+    res = main.extract_positions(titles=["Data Engineer"], keywords=["data"])
+    main.load_data(table_name="data_engineer", row_values=res["data_engineer"])
+    main.load_data(table_name="data_scientist", row_values=res["data"])
+    main.load_data(table_name="data_analyst", row_values=res["data"])
+    main.load_data(table_name="data", row_values=res["data"])
+    main.load_data(table_name="analysis", row_values=res["data"])
+    main.load_data(table_name="analytics", row_values=res["data"])
+    res = main.run_analysis(output_path="test_dir")
+    assert os.path.exists("test_dir/q1_salary_report.csv")
 
 
 def test_send_reports():

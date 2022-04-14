@@ -5,11 +5,13 @@ import sqlite3
 import smtplib
 import requests
 import sqlalchemy
+import pandas as pd
+
 from os import environ
 from datetime import date
 from pydantic import BaseModel
 from typing import List, Tuple, Dict
-from sqlalchemy import create_engine, insert, select
+from sqlalchemy import create_engine, insert, select, text, func
 from usagovjobs import constants, models
 
 
@@ -18,7 +20,9 @@ class Position(BaseModel):
     position_title: str
     organization_name: str
     min_salary: float
+    monthly_min_salary: float
     max_salary: float
+    monthly_max_salary: float
     salary_interval: str
     who_may_apply: str
 
@@ -108,16 +112,23 @@ def parse_positions(response_json) -> List[Dict]:
     parsed_positions: List[Dict] = []
     for position in response_json["SearchResult"]["SearchResultItems"]:
         position_data = position["MatchedObjectDescriptor"]
+        salary_interval = position_data["PositionRemuneration"][0]["RateIntervalCode"]
+        monthly_min_salary = (
+            float(position_data["PositionRemuneration"][0]["MinimumRange"]) / 12
+        )
+        monthly_max_salary = (
+            float(position_data["PositionRemuneration"][0]["MaximumRange"]) / 12
+        )
         parsed_positions.append(
             Position(
                 position_id=position_data["PositionID"],
                 position_title=position_data["PositionTitle"],
                 organization_name=position_data["OrganizationName"],
                 min_salary=position_data["PositionRemuneration"][0]["MinimumRange"],
+                monthly_min_salary=monthly_min_salary,
                 max_salary=position_data["PositionRemuneration"][0]["MaximumRange"],
-                salary_interval=position_data["PositionRemuneration"][0][
-                    "RateIntervalCode"
-                ],
+                monthly_max_salary=monthly_max_salary,
+                salary_interval=salary_interval,
                 who_may_apply="United States Citizens "
                 if position_data["UserArea"]["Details"]["WhoMayApply"]["Name"] == ""
                 else position_data["UserArea"]["Details"]["WhoMayApply"],
@@ -151,7 +162,7 @@ def load_data(table_name: str, row_values: List[dict]):
             print(e)
 
 
-def run_analysis(output_path: str):
+def run_analysis(output_path: str = constants.OUTPUT_PATH):
     """
     Runs 3 SQL queries to obtain results that could answer the following questions:
     1. How do *monthly* starting salaries differ across positions with different titles and keywords?
@@ -164,7 +175,21 @@ def run_analysis(output_path: str):
     ** Feel free to break this function down into smaller units
     (hint: potentially have a `export_csv(query_result)` function)
     """
-    pass
+    engine = prep_database()
+    with engine.connect() as con:
+        query = text(
+            """
+        SELECT AVG(data_engineer.monthly_min_salary) AS engineer_monthly_min,
+               AVG(data_scientist.monthly_min_salary) AS scientist_monthly_min,
+               AVG(data_analyst.monthly_min_salary) AS analyst_monthly_min,
+               AVG(data.monthly_min_salary) AS data_monthly_min,
+               AVG(analysis.monthly_min_salary) AS analysis_monthly_min,
+               AVG(analytics.monthly_min_salary) AS analytics_monthly_min
+               FROM data_engineer, data_scientist, data_analyst, data, analysis, analytics;
+        """
+        )
+        results = pd.read_sql_query(query, con)
+        results.to_csv(os.path.join(output_path, "q1_salary_report.csv"))
 
 
 def send_reports(recipient_email: str, reports_path: str):

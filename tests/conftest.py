@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 import pytest
 
 from unittest import mock
@@ -285,6 +286,10 @@ def mock_response_object():
 
 @pytest.fixture(scope="function")
 def mock_db():
+    os.makedirs("test_dir")
     yield main.prep_database(db_name="test")
     if os.path.exists("test.db"):
         os.remove("test.db")
+
+    if os.path.isdir("test_dir"):
+        shutil.rmtree("test_dir")
