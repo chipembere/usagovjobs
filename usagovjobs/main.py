@@ -61,7 +61,7 @@ def get_api_call(
 
 
 def extract_positions(
-    titles: List[str], keywords: List[str]
+    titles: List[str]=constants.POSITION_TITLES, keywords: List[str]=constants.KEYWORDS
 ) -> Dict[str, List[Position]]:
     """
     Makes API calls for titles and keywords, parses the responses.
@@ -221,13 +221,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.report:
-        print('Report!')
+        print('Reporting!')
         send_reports()
     elif args.extract:
-        print('Extract!')
+        print('Extracting!')
+        if os.path.exists(f"{constants.DB_NAME}.db"):
+            os.remove(f"{constants.DB_NAME}.db")
+        for f in os.listdir(constants.OUTPUT_PATH):
+            os.remove(os.path.join(constants.OUTPUT_PATH, f))
+        
+        # extract_positions()
+    
     else:
         print("Unkown Arg! use either '--extract' or '--report'")
-    if os.path.exists(constants.DB_NAME):
-        os.remove(constants.DB_NAME)
-    for f in os.listdir(constants.OUTPUT_PATH):
-        os.remove(os.path.join(constants.OUTPUT_PATH, f))

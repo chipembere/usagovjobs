@@ -17,5 +17,7 @@ KEYWORD_TABLE_MAP = {
     "analysis": "analysis",
     "analytics": "analytics",
 }
+POSITION_TITLES = ["Data Analyst","Data Analyst","Data Analyst"]
+KEYWORDS = ["data", "analysis", "analytics"]
 OUTPUT_PATH = "reports"
 EMAIL_RECEPIENT = "recepient@email.com"
