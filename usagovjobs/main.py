@@ -61,45 +61,48 @@ def get_api_call(
 
 
 def extract_positions(
-    titles: List[str]=constants.POSITION_TITLES, keywords: List[str]=constants.KEYWORDS
+    titles: List[str] = constants.POSITION_TITLES,
+    keywords: List[str] = constants.KEYWORDS,
 ) -> Dict[str, List[Position]]:
     """
     Makes API calls for titles and keywords, parses the responses.
 
     Returns the values ready to be loaded into database."""
     table_and_positions: Dict[str, List[Dict]] = {}
-    for title in titles:
-        response_json: requests.Response = get_api_call(
-            endpoint="search",
-            params={
-                "Page": 1,
-                "ResultsPerPage": constants.PAGE_LIMIT,
-                "PositionTitle": title,
-            },
-        )
-        if response_json:
-            table_and_positions[constants.KEYWORD_TABLE_MAP[title]] = parse_positions(
-                response_json
+    if titles:
+        for title in titles:
+            response_json: requests.Response = get_api_call(
+                endpoint="search",
+                params={
+                    "Page": 1,
+                    "ResultsPerPage": constants.PAGE_LIMIT,
+                    "PositionTitle": title,
+                },
             )
-        else:
-            print(f"PositionTitle: {title} request error")
-            return
-    for keyword in keywords:
-        response_json: requests.Response = get_api_call(
-            endpoint="search",
-            params={
-                "Page": 1,
-                "ResultsPerPage": constants.PAGE_LIMIT,
-                "Keyword": keyword,
-            },
-        )
-        if response_json:
-            table_and_positions[constants.KEYWORD_TABLE_MAP[keyword]] = parse_positions(
-                response_json
+            if response_json:
+                table_and_positions[
+                    constants.KEYWORD_TABLE_MAP[title]
+                ] = parse_positions(response_json)
+            else:
+                print(f"PositionTitle: {title} request error")
+                return
+    if keywords:
+        for keyword in keywords:
+            response_json: requests.Response = get_api_call(
+                endpoint="search",
+                params={
+                    "Page": 1,
+                    "ResultsPerPage": constants.PAGE_LIMIT,
+                    "Keyword": keyword,
+                },
             )
-        else:
-            print(f"Keyword: {keyword} request error")
-            return
+            if response_json:
+                table_and_positions[
+                    constants.KEYWORD_TABLE_MAP[keyword]
+                ] = parse_positions(response_json)
+            else:
+                print(f"Keyword: {keyword} request error")
+                return
 
     return table_and_positions
 
@@ -151,15 +154,15 @@ def prep_database(db_name: str = constants.DB_NAME):
 
 def load_data(table_name: str, row_values: List[dict]):
     """Connects to database and loads values in corresponding tables."""
-    engine = prep_database()
-    for row in row_values:
-        try:
-            stmt = insert(models.Base.metadata.tables[table_name]).values(**row)
-            with engine.connect() as connection:
-                with connection.begin():
-                    result = connection.execute(stmt)
-        except Exception as e:
-            print(e)
+    engine = db_connect()
+    with engine.connect() as connection:
+        with connection.begin():  # transcation
+            for row in row_values:
+                try:
+                    stmt = insert(models.Base.metadata.tables[table_name]).values(**row)
+                    connection.execute(stmt)
+                except Exception as e:
+                    print(f"Failed to load data to {table_name}: {e}")
 
 
 def run_analysis(output_path: str = constants.OUTPUT_PATH):
@@ -175,24 +178,43 @@ def run_analysis(output_path: str = constants.OUTPUT_PATH):
     ** Feel free to break this function down into smaller units
     (hint: potentially have a `export_csv(query_result)` function)
     """
-    engine = prep_database()
-    with engine.connect() as con:
+    engine = db_connect()
+    with engine.begin() as con:
         query = text(
             """
-        SELECT AVG(data_engineer.monthly_min_salary) AS engineer_monthly_min,
-               AVG(data_scientist.monthly_min_salary) AS scientist_monthly_min,
-               AVG(data_analyst.monthly_min_salary) AS analyst_monthly_min,
-               AVG(data.monthly_min_salary) AS data_monthly_min,
-               AVG(analysis.monthly_min_salary) AS analysis_monthly_min,
-               AVG(analytics.monthly_min_salary) AS analytics_monthly_min
-               FROM data_engineer, data_scientist, data_analyst, data, analysis, analytics;
+        select avg(monthly_min_salary) as engineer_min_avg_salary from data_engineer
+        union all
+        select avg(monthly_min_salary) as scientist_min_avg_salary from data_scientist
+        union all
+        select avg(monthly_min_salary) as analyst_min_avg_salary from data_analyst
+        union all
+        select avg(monthly_min_salary) as data_min_avg_salary from data
+        union all
+        select avg(monthly_min_salary) as analysis_min_avg_salary from analysis
+        union all
+        select avg(monthly_min_salary) as analytics_min_avg_salary from analytics;
         """
         )
-        results = pd.read_sql_query(query, con)
-        results.to_csv(os.path.join(output_path, "q1_salary_report.csv"))
+        columns = [
+            "data engineer",
+            "data scientist",
+            "data analyst",
+            "data",
+            "analysis",
+            "analytics",
+        ]
+        results = con.execute(query)
+        data = results.fetchall()
+        if len(data) > 0:
+            values = (i[0] for i in data)
+            df = pd.DataFrame(data=[values], columns=columns)
+            df.to_csv(os.path.join(output_path, "q1_salary_report.csv"))
 
 
-def send_reports(recipient_email: str=constants.EMAIL_RECEPIENT, reports_path: str=constants.OUTPUT_PATH):
+def send_reports(
+    recipient_email: str = constants.EMAIL_RECEPIENT,
+    reports_path: str = constants.OUTPUT_PATH,
+):
     """
     Loops through present CSV files in reports_path,
     and sends them via email to recipient.
@@ -202,6 +224,11 @@ def send_reports(recipient_email: str=constants.EMAIL_RECEPIENT, reports_path: s
     print(f"sending report to {recipient_email}.")
     print("...")
     print("email sent.")
+
+
+# Call report with an email that can only be changed as an enviroment variable
+# The same for titles and keywords
+# All inputs are taken from the enviroment so that
 
 
 if __name__ == "__main__":
@@ -216,21 +243,41 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
+
+    sub_parsers = parser.add_subparsers()
+
+    report_parser = sub_parsers.add_parser(
+        name="report",
+    )
+
     parser.add_argument("-r", "--report", help="Send reports.", action="store_true")
-    parser.add_argument("-e", "--extract", help="Extract data.", action="store_true")
+    parser.add_argument(
+        "-e",
+        "--extract",
+        help="Position title and keywords to search.",
+        action="store_true",
+    )
     args = parser.parse_args()
 
     if args.report:
-        print('Reporting!')
+        print("Reporting!")
         send_reports()
     elif args.extract:
-        print('Extracting!')
+        print("Extracting!")
         if os.path.exists(f"{constants.DB_NAME}.db"):
             os.remove(f"{constants.DB_NAME}.db")
-        for f in os.listdir(constants.OUTPUT_PATH):
-            os.remove(os.path.join(constants.OUTPUT_PATH, f))
-        
-        # extract_positions()
-    
+        if os.path.exists(constants.OUTPUT_PATH):
+            for f in os.listdir(constants.OUTPUT_PATH):
+                os.remove(os.path.join(constants.OUTPUT_PATH, f))
+        prep_database()
+
+        table_position_mapping = extract_positions()
+        if table_position_mapping:
+            for mapping in table_position_mapping.items():
+                try:
+                    load_data(table_name=mapping[0], row_values=mapping[1])
+                except Exception as e:
+                    print(f"Failed to load {json.dumps(mapping[0])} error {e}")
+        run_analysis()
     else:
         print("Unkown Arg! use either '--extract' or '--report'")

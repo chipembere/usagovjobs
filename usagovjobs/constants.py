@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 
+#
 load_dotenv()
 
 BASE_URL = os.getenv("BASE_URL")
@@ -17,7 +18,7 @@ KEYWORD_TABLE_MAP = {
     "analysis": "analysis",
     "analytics": "analytics",
 }
-POSITION_TITLES = ["Data Analyst","Data Analyst","Data Analyst"]
+POSITION_TITLES = ["Data Scientist", "Data Engineer", "Data Analyst"]
 KEYWORDS = ["data", "analysis", "analytics"]
 OUTPUT_PATH = "reports"
 EMAIL_RECEPIENT = "recepient@email.com"

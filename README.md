@@ -11,13 +11,13 @@ USA_JOBS_USER_AGENT=<user agent>\
 HOST=data.usajobs.gov
 
 ## running locally
-[Install poetry on your device](https://python-poetry.org/docs/)
-`poetry shell`
-`poetry install`
-`poetry run python usagovjobs/main.py -r`
+[Install poetry on your device](https://python-poetry.org/docs/)\
+`poetry shell`\
+`poetry install`\
+`poetry run python usagovjobs/main.py -r`\
 
 ## tests
-To run tests
-`poetry shell`
-`poetry install`
-`make test`
+To run tests\
+`poetry shell`\
+`poetry install`\
+`make test`\
