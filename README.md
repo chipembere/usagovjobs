@@ -2,12 +2,12 @@
 Search gov data jobs and store the results in a local db for downstream use (report email).
 
 ## .env file
-You'll need the values below in a .env file in the root directory.
+You'll need to create a .env file in the root directory and update api key and user agent values.
 
 BASE_URL=https://data.usajobs.gov/api/ \
-DB_NAME=<database name>\
-USA_JOBS_API_KEY=<api key>\
-USA_JOBS_USER_AGENT=<user agent>\
+DB_NAME=usajobs.gov\
+USA_JOBS_API_KEY='your api key'\
+USA_JOBS_USER_AGENT='you user agent'\
 HOST=data.usajobs.gov
 
 ## running locally
