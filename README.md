@@ -14,21 +14,21 @@ HOST=data.usajobs.gov
 [Install poetry on your device](https://python-poetry.org/docs/)\
 `poetry shell`\
 `poetry install`\
-`poetry run python usagovjobs/main.py -r`\
+`poetry run python usagovjobs/main.py -r`
 
 ## tests
 To run tests\
 `poetry shell`\
 `poetry install`\
-`make test`\
+`make test`
 
 ## docker
-From the root directory you can enter the commands below\
+From the root directory you can enter the commands below
 ### build image
-`make docker-build`\
+`make docker-build`
 ### run
-`make docker-run`\
+`make docker-run`
 ### checks logs
-`make docker-logs`\
+`make docker-logs`
 ### stop container
-`make docker-stop`\
+`make docker-stop`
