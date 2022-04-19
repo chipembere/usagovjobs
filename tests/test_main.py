@@ -81,7 +81,7 @@ def test_load_data(mock_get_api_call, mock_prep_database, mock_db, response_json
     assert result.fetchone()
 
 
-@mock.patch("usagovjobs.main.prep_database")
+@mock.patch("usagovjobs.main.db_connect")
 @mock.patch("usagovjobs.main.get_api_call")
 def test_run_analysis(mock_get_api_call, mock_prep_database, mock_db, response_json):
     mock_prep_database.return_value = mock_db

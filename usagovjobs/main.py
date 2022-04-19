@@ -6,6 +6,7 @@ import smtplib
 import requests
 import sqlalchemy
 import pandas as pd
+import datetime as dt
 
 from os import environ
 from datetime import date
@@ -13,6 +14,9 @@ from pydantic import BaseModel
 from typing import List, Tuple, Dict
 from sqlalchemy import create_engine, insert, select, text, func
 from usagovjobs import constants, models
+
+# set the max columns to none
+pd.set_option("display.max_columns", None)
 
 
 class Position(BaseModel):
@@ -209,6 +213,8 @@ def run_analysis(output_path: str = constants.OUTPUT_PATH):
             values = (i[0] for i in data)
             df = pd.DataFrame(data=[values], columns=columns)
             df.to_csv(os.path.join(output_path, "q1_salary_report.csv"))
+            print(f"Saved the latest report for {dt.datetime.now()}")
+            print(df)
 
 
 def send_reports(
@@ -221,7 +227,7 @@ def send_reports(
 
     Returns None
     """
-    print(f"sending report to {recipient_email}.")
+    print(f"sending report {dt.datetime.now()} to {recipient_email}.")
     print("...")
     print("email sent.")
 
@@ -263,7 +269,7 @@ if __name__ == "__main__":
         print("Reporting!")
         send_reports()
     elif args.extract:
-        print("Extracting!")
+        print(f"Extracting {dt.datetime.now()}.")
         if os.path.exists(f"{constants.DB_NAME}.db"):
             os.remove(f"{constants.DB_NAME}.db")
         if os.path.exists(constants.OUTPUT_PATH):

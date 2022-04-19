@@ -21,3 +21,14 @@ To run tests\
 `poetry shell`\
 `poetry install`\
 `make test`\
+
+## docker
+From the root directory you can enter the commands below\
+### build image
+`make docker-build`\
+### run
+`make docker-run`\
+### checks logs
+`make docker-logs`\
+### stop container
+`make docker-stop`\
