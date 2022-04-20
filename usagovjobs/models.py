@@ -34,11 +34,6 @@ Base = declarative_base()
 
 class DataAnalyst(Base):
     __tablename__ = "data_analyst"
-
-    def __init__(self, table_name: str, *args: Any, **kwargs: Any) -> None:
-        __tablename__ = table_name
-        super().__init__(*args, **kwargs)
-
     id = Column(Integer, primary_key=True, nullable=False)
     position_id = Column(String(256), unique=True, nullable=False)
     position_title = Column(String(256), nullable=False)
@@ -53,11 +48,6 @@ class DataAnalyst(Base):
 
 class DataScientist(Base):
     __tablename__ = "data_scientist"
-
-    def __init__(self, table_name: str, *args: Any, **kwargs: Any) -> None:
-        __tablename__ = table_name
-        super().__init__(*args, **kwargs)
-
     id = Column(Integer, primary_key=True, nullable=False)
     position_id = Column(String(256), unique=True, nullable=False)
     position_title = Column(String(256), nullable=False)
@@ -73,11 +63,6 @@ class DataScientist(Base):
 
 class DataEngineer(Base):
     __tablename__ = "data_engineer"
-
-    def __init__(self, table_name: str, *args: Any, **kwargs: Any) -> None:
-        __tablename__ = table_name
-        super().__init__(*args, **kwargs)
-
     id = Column(Integer, primary_key=True, nullable=False)
     position_id = Column(String(256), unique=True, nullable=False)
     position_title = Column(String(256), nullable=False)
@@ -92,11 +77,6 @@ class DataEngineer(Base):
 
 class Data(Base):
     __tablename__ = "data"
-
-    def __init__(self, table_name: str, *args: Any, **kwargs: Any) -> None:
-        __tablename__ = table_name
-        super().__init__(*args, **kwargs)
-
     id = Column(Integer, primary_key=True, nullable=False)
     position_id = Column(String(256), unique=True, nullable=False)
     position_title = Column(String(256), nullable=False)
@@ -111,11 +91,6 @@ class Data(Base):
 
 class analysis(Base):
     __tablename__ = "analysis"
-
-    def __init__(self, table_name: str, *args: Any, **kwargs: Any) -> None:
-        __tablename__ = table_name
-        super().__init__(*args, **kwargs)
-
     id = Column(Integer, primary_key=True, nullable=False)
     position_id = Column(String(256), unique=True, nullable=False)
     position_title = Column(String(256), nullable=False)
@@ -130,11 +105,6 @@ class analysis(Base):
 
 class Analytics(Base):
     __tablename__ = "analytics"
-
-    def __init__(self, table_name: str, *args: Any, **kwargs: Any) -> None:
-        __tablename__ = table_name
-        super().__init__(*args, **kwargs)
-
     id = Column(Integer, primary_key=True, nullable=False)
     position_id = Column(String(256), unique=True, nullable=False)
     position_title = Column(String(256), nullable=False)

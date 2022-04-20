@@ -215,6 +215,37 @@ def run_analysis(output_path: str = constants.OUTPUT_PATH):
             df.to_csv(os.path.join(output_path, "q1_salary_report.csv"))
             print(f"Saved the latest report for {dt.datetime.now()}")
             print(df)
+        organisations_query = text(
+            """
+        select organization_name, count(*) from
+        (
+        select organization_name from data_engineer
+        union ALL
+        select organization_name from data_scientist
+        union ALL
+        select organization_name from data_analyst
+        union ALL
+        select organization_name from data
+        union ALL
+        select organization_name from analysis
+        union ALL
+        select organization_name from analytics
+        ) as org_rank
+        group by organization_name
+        order by count(*) DESC
+        """
+        )
+        results = con.execute(organisations_query)
+        org_data = results.fetchall()
+        if len(org_data) > 0:
+            values = [
+                {"Organisation Name": i[0], "Open Positions": i[1]} for i in org_data
+            ]
+            org_df = pd.DataFrame.from_dict(data=values)
+            org_df.to_csv(
+                os.path.join(output_path, "org_with_most_positions_report.csv")
+            )
+            print(org_df)
 
 
 def send_reports(

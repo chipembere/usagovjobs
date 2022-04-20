@@ -34,3 +34,6 @@ docker-stop:
 
 docker-exec:
 	docker exec -it usagovjobs bash
+
+main-extract:
+	poetry run python usagovjobs/main.py -e
